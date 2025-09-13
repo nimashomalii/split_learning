@@ -2,6 +2,7 @@ import pandas as pd
 import torch
 import random
 from torch.utils.data import  TensorDataset , DataLoader
+import math
 # مسیر فایل خود را اینجا وارد کنید
 
 
@@ -40,10 +41,15 @@ def extract_data_from_person(dataframe , window_lengh , dataset_name ) :
     for index, row in dataframe.iterrows():
         item_id = row['itemid']
         value = row['value']
+
+
         try:
             value = float(value)
+            if math.isnan(value) or math.isinf(value):
+                continue   # رد کردن مقادیر نامعتبر
         except (ValueError, TypeError):
             continue
+
     #data _order for metavision : (heart rate , respiratory rate , Non-invasive BP Mean , Arterial BP Mean)
     #data order for 'carevue' is (heart rate, respiratory rate, arterial BP mean, NBP mean, temperature)
 
@@ -149,5 +155,4 @@ class data_preparing :
         dataset = TensorDataset(self.data[:end ,: ,  : , : ] , self.label[:end])
         train_loader = DataLoader(dataset , batch_size=batch_size , shuffle= True)
         return train_loader    
-
 
