@@ -9,11 +9,12 @@ class Transmitter :
         x_list = x.detach().cpu().tolist()
         label_list = label.detach().cpu().tolist()
         data = {
-            'list1': x_list,
-            'list2': label_list
+            'list1':[1,2],
+            'list2': [3,4]
         }
         headers = {'Content-Type': 'application/json'}
         response = requests.post(self.server_url, data=json.dumps(data), headers=headers)
         response.raise_for_status()
         result = response.json()
         return result
+
