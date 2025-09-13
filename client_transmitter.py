@@ -5,7 +5,7 @@ import time
 class Transmitter : 
     def __init__(self,server_url) : 
         self.server_url = server_url #" https://d5e33cbc658b.ngrok-free.app/is_even"
-    def send_data(self , x , y):
+    def send_data(self , x , label):
         x = x.detach().cpu().tolist()
         label = label.detach().cpu().tolist()
         data = {
@@ -17,3 +17,4 @@ class Transmitter :
         response.raise_for_status()
         result = response.json()
         return result
+
