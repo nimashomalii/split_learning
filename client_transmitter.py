@@ -19,6 +19,7 @@ class Transmitter :
         elif status == 'test' : 
             data = {
                 'prediction_iput':x,
+                'label': [] , 
                 'status' : status
             }
         headers = {'Content-Type': 'application/json'}
