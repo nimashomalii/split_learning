@@ -62,7 +62,7 @@ class Multi_autoEncoder(nn.Module):
     def train_one_sample(self ,x, decoder_output , optimizer) : 
         optimizer.zero_grad()
         loss = self.loss_fn(x  , decoder_output)
-        loss.backward()
+        loss.backward(retain_graph=True)
         optimizer.step()
 
 
