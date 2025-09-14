@@ -4,10 +4,10 @@ import time
 import torch 
 
 class Transmitter : 
-    def __init__(self,server_url) : 
+    def __init__(self,server_url , device) : 
         self.server_url = server_url #" https://d5e33cbc658b.ngrok-free.app/is_even"
-
-    def send_data(self , x , label ,device ,  status  ): #status if is train or test 
+        self.device = device
+    def send_data(self , x , label ,  status  ): #status if is train or test 
         x = x.detach().cpu().tolist()
         label = label.detach().cpu().tolist()
         if status == 'train' : 
@@ -27,8 +27,8 @@ class Transmitter :
         result = response.json()
         if status == 'train' : # result = {'grad' :  }
             grad = result['grad']
-            return torch.tensor(grad).to(device)
+            return torch.tensor(grad).to(self.device)
         elif status == 'test' :
-            prediction = torch.tensor(result['prediction']).to(device)
+            prediction = torch.tensor(result['prediction']).to(self.device)
             return  prediction
 
