@@ -38,13 +38,14 @@ class HTTPS(nn.Module) :
             loss_train =loss_train.item()
             history['loss_test'].append(loss_test)
             history['loss_train'].append(loss_train)
+
         return history
 
     def train_one_epoch(self) :
         for x , l in self.data.load_train(batch_size = self.batch_size) :  
             prediction_input   = self.network(x.to(self.device), train_decoder= True)
             grad = self.transmittion.send_data(prediction_input , l , status='train')
-            self.network.train_one_batch(prediction_input , grad)
+            self.network.train_one_batch(prediction_input , grad.clone())
         return True
     def evaluate_one_epoch(self)  :
         loss_train = 0 
