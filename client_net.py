@@ -91,12 +91,12 @@ class sparse(nn.Module) :
 
 
 class client_network(nn.Module):
-    def __init__(self, w, n_features_input):
+    def __init__(self, w, n_features_input , lr):
         super(client_network, self).__init__()
         self.MultiAutoEncoder = Multi_autoEncoder(w , n_features_input)
         self.sparse_net = sparse(n_features_input)
         self.loss_fn = nn.MSELoss()
-        self.optimizer = optim.Adam(self.parameters() , lr=0.01)
+        self.optimizer = optim.Adam(self.parameters() , lr=lr)
     def forward(self, x, train_decoder= True):
         # x  : (batch , 2 , w , N)
         sparse_inp =x[: , 0 , : , :]
@@ -111,7 +111,3 @@ class client_network(nn.Module):
         self.optimizer.zero_grad()
         prediction_inp.backward(grad)
         self.optimizer.step()
-
-        
-
-
