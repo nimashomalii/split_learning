@@ -104,7 +104,7 @@ class client_network(nn.Module):
         sparse_out = self.sparse_net(sparse_inp) #(B , w)
         dense_encoder_out , dennse_decoder_out = self.MultiAutoEncoder(dense_inp)
         prediction_inp = torch.concat([sparse_out,dense_encoder_out ] , dim=1) # (B , W + N)
-        if train_decoder : 
+        if  False : 
             self.MultiAutoEncoder.train_one_sample(dense_inp , dennse_decoder_out  , self.optimizer)
         return prediction_inp
     def train_one_batch(self, prediction_inp , grad ) : 
