@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-
+print('hello world')
 class encoder(nn.Module) : 
     def __init__(self , w ) : 
         super().__init__()
