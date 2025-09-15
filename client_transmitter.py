@@ -22,7 +22,7 @@ class Transmitter :
                 'label': [] , 
                 'status' : status
             }
-        time.sleep(0.1)
+        time.sleep(20)
         headers = {'Content-Type': 'application/json'}
         response = requests.post(self.server_url, data=json.dumps(data), headers=headers)
         response.raise_for_status()
@@ -33,5 +33,6 @@ class Transmitter :
         elif status == 'test' :
             prediction = torch.tensor(result['prediction']).to(self.device)
             return  prediction
+
 
 
