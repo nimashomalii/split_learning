@@ -8,17 +8,17 @@ class Transmitter :
         self.server_url = server_url #" https://d5e33cbc658b.ngrok-free.app/is_even"
         self.device = device
     def send_data(self , x , label ,  status  ): #status if is train or test 
-        x = x.detach().cpu().tolist()
+        x_copy = x.detach().cpu().tolist()
         label = label.detach().cpu().tolist()
         if status == 'train' : 
             data = {
-                'prediction_iput':x,
+                'prediction_iput':x_copy,
                 'label': label ,
                 'status' : status
             }
         elif status == 'test' : 
             data = {
-                'prediction_iput':x,
+                'prediction_iput':x_copy,
                 'label': [] , 
                 'status' : status
             }
